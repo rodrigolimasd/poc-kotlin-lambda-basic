@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "poc-kotlin-lambda-basic"
-include("app", "list", "utilities")
+include("stack", "lambdas")
