@@ -6,23 +6,13 @@ on:
       - main
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: Prod
-      url: https://test.com
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
         with:
-          distribution: temurin
-          java-version: 11
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Execute Gradle Build
+          java-version: '14'
+      - name: Build
         run: ./gradlew build
