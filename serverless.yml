@@ -6,6 +6,10 @@ provider:
   stage: dev
   region: us-east-1
 
+package:
+  artifact: build/libs/poc-kotlin-lambda-basic.jar
+
+
 functions:
   helloWorld:
     handler: com.rodtech.serverless.HelloWorldFunction
