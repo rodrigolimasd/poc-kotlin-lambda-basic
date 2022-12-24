@@ -1,0 +1,15 @@
+service: poc-kotlin-lambda-basic
+
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  region: us-east-1
+
+functions:
+  helloWorld:
+    handler: com.rodtech.serverless.HelloWorldFunction
+    events:
+      - http:
+          path: /hello
+          method: get

@@ -6,10 +6,10 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import org.apache.log4j.Logger
 
-class HelloWolrdFunction : RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>{
+class HelloWorldFunction : RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>{
 
     companion object {
-        private val log = Logger.getLogger(HelloWolrdFunction::class.java)
+        private val log = Logger.getLogger(HelloWorldFunction::class.java)
     }
 
     override fun handleRequest(input: APIGatewayProxyRequestEvent, context: Context?): APIGatewayProxyResponseEvent {
