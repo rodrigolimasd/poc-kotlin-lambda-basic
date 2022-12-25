@@ -2,7 +2,7 @@ service: poc-kotlin-lambda-basic
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java11
   stage: dev
   region: us-east-1
 
