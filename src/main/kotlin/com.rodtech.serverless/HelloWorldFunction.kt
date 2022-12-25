@@ -2,22 +2,23 @@ package com.rodtech.serverless
 
 import com.amazonaws.services.lambda.runtime.Context
 import com.amazonaws.services.lambda.runtime.RequestHandler
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
-import org.apache.log4j.Logger
+import com.rodtech.serverless.response.ApiGatewayResponse
 
-class HelloWorldFunction : RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>{
+//import java.util.logging.Logger
+
+//import org.apache.log4j.Logger
+
+class HelloWorldFunction : RequestHandler<Map<String, Any>, ApiGatewayResponse>{
 
     companion object {
-        private val log = Logger.getLogger(HelloWorldFunction::class.java)
+       // private val log = Logger.getAnonymousLogger() //Logger.getLogger(HelloWorldFunction::class.java)
     }
 
-    override fun handleRequest(input: APIGatewayProxyRequestEvent, context: Context?): APIGatewayProxyResponseEvent {
-        log.info("received: $input")
-        return APIGatewayProxyResponseEvent().apply {
-            statusCode = 200
+    override fun handleRequest(input: Map<String, Any>, context: Context?): ApiGatewayResponse {
+       // log.info("received: $input")
+        return ApiGatewayResponse(
             body = "Hello World"
-        }
+        )
     }
 
 }

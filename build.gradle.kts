@@ -16,8 +16,6 @@ dependencies {
     //implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     //aws lambda
-    implementation("com.amazonaws:aws-lambda-java-core:1.2.1")
-    implementation("com.amazonaws:aws-lambda-java-events:3.11.0")
-    implementation("com.amazonaws:aws-lambda-java-log4j:1.0.1")
+    implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
 
 }
