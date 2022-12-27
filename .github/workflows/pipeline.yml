@@ -36,8 +36,8 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
-      - name: List artifacts
-          run: ls
+      - shell: bash
+        run: ls
       - name: Install global dependencies
         run: npm install -g serverless
       - name: Configure AWS credentials
