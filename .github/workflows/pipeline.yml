@@ -16,10 +16,28 @@ jobs:
           java-version: '14'
       - name: Build
         run: ./gradlew build
+      - name: Cache build artifacts
+        uses: actions/cache@v2
+        with:
+          path: build/libs
+          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: .
+          include: |
+            serverless.yml
+      - name: Restore build artifacts
+        uses: actions/cache@v2
+        with:
+          path: build/libs
+          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+      - name: List artifacts
+          run: ls
       - name: Install global dependencies
         run: npm install -g serverless
       - name: Configure AWS credentials
