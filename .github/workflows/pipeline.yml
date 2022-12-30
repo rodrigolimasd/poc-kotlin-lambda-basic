@@ -32,7 +32,6 @@ jobs:
        # Add an approval step before deploying
       - name: Approval
         uses: actions/request-approval@v2
-        with:
       #checkout repo
       - name: Checkout
         uses: actions/checkout@v2
