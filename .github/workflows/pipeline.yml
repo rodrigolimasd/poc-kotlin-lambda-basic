@@ -36,15 +36,10 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
-      - name: Install global dependencies
-        run: npm install -g serverless
-      # Set the AWS credentials as environment variables
-      - name: Set AWS credentials as environment variables
-        run: |
-          echo "Setting AWS credentials as environment variables"
+      - name: Serverless Deploy
+        uses: serverless/github-action@v3.1
+        with:
+          args: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #deploy to aws by serverless framework
-      - name: Deploy to AWS
-        run: serverless deploy --aws-access-key-id=$AWS_ACCESS_KEY_ID --aws-secret-access-key=$AWS_SECRET_ACCESS_KEY
