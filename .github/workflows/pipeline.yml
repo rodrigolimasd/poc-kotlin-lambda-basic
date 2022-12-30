@@ -34,6 +34,8 @@ jobs:
         uses: actions/request-approval@v2
         with:
           reviewers: rodrigolima
+          # Force the action to recreate the repository if it doesn't exist
+          force: true
       #checkout repo
       - name: Checkout
         uses: actions/checkout@v2
