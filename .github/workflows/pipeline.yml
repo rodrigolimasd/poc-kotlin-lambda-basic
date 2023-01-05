@@ -31,11 +31,9 @@ jobs:
     steps:
        # Add an approval step before deploying
       - name: Approval
-        uses: actions/request-approval@v2
+        uses: trstringer/manual-approval@v1
         with:
-          reviewers: rodrigolima
-          # Force the action to recreate the repository if it doesn't exist
-          force: true
+          approvers: rodrigolima
       #checkout repo
       - name: Checkout
         uses: actions/checkout@v2
