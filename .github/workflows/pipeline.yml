@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: Prod
-      url: https://test.com
     steps:
       #checkout repo
       - uses: actions/checkout@v2
