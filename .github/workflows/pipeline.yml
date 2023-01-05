@@ -29,11 +29,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-       # Add an approval step before deploying
-      - name: Approval
-        uses: trstringer/manual-approval@v1
-        with:
-          approvers: rodrigolima
       #checkout repo
       - name: Checkout
         uses: actions/checkout@v2
