@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: Prod
+      url: https://test.com
     steps:
       #checkout repo
       - uses: actions/checkout@v2
@@ -28,6 +31,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: Prod
+      url: https://test.com
     steps:
       #checkout repo
       - name: Checkout
