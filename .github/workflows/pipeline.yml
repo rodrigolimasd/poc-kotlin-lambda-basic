@@ -56,7 +56,7 @@ jobs:
   deploy-hml:
     needs: build
     runs-on: ubuntu-latest
-    enviroment:
+    environment:
       name: Hml
       url: https://test.com
     steps:
