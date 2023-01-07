@@ -37,15 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          path: .
-          include: |
-            serverless.yml
-      #get build files
-      - name: Restore build artifacts
-        uses: actions/cache@v2
-        with:
-          path: build/libs
-          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+          fetch-depth: 0
       #Login Heroku
       - name: Login Heroku
         run: |
