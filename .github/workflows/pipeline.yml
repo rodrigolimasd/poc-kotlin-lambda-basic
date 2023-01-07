@@ -46,7 +46,7 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
-      #Login And Deploy on Heroku
+      #Login Heroku
       - name: Login Heroku
         run: |
           cat > ~/.netrc <<EOF
@@ -60,6 +60,13 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      #Deploy Heroku
+      - name: Add Heroku remote
+        run: |
+          heroku config:set HEROKU_APP_NAME=$HEROKU_APP_NAME
+          heroku deploy
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
 
   #Deploy to AWS as HML
   deploy-prd:
