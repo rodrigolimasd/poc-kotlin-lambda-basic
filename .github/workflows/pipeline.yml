@@ -50,7 +50,6 @@ jobs:
         uses: heroku/setup-heroku-cli@v1
       #Heroku
       - name: Install Heroku CLI
-        uses: heroku/setup-heroku-cli@v1
       #Login And Deploy on Heroku
       - name: Heroku Login
         run: |
