@@ -62,6 +62,7 @@ jobs:
         run: |
           heroku config:set GRADLE_TASK="build"
           git push heroku HEAD:main --force
+          heroku run serverless
 
   #Deploy to AWS as HML
   deploy-prd:
