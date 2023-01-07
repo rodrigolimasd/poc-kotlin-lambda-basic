@@ -60,8 +60,8 @@ jobs:
       #Deploy
       - name: Push to Heroku & Deploy
         run: |
-        heroku config:set GRADLE_TASK="build"
-        git push heroku HEAD:main --force
+          heroku config:set GRADLE_TASK="build"
+          git push heroku HEAD:main --force
 
   #Deploy to AWS as HML
   deploy-prd:
