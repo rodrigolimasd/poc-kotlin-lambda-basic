@@ -59,7 +59,9 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       #Deploy
       - name: Push to Heroku & Deploy
-        run: git push heroku HEAD:main --force
+        run: |
+        heroku config:set GRADLE_TASK="build"
+        git push heroku HEAD:main --force
 
   #Deploy to AWS as HML
   deploy-prd:
