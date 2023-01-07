@@ -25,6 +25,24 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+  #Deploy to hekoru as HML
+  deploy-hml:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: Hml
+      url: https://test.com
+    steps:
+      - name: Deploy hml
+        run: echo "Deploy Hml"
+      #checkout repo
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: .
+          include: |
+            serverless.yml
+  #Deploy to AWS as HML
   deploy-prd:
     needs: build
     runs-on: ubuntu-latest
@@ -46,19 +64,11 @@ jobs:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
       #deploy on aws using serverless framework
-      - name: Serverless Deploy
+      - name: Install Plugin and Deploy
         uses: serverless/github-action@v3.1
         with:
-          args: deploy
+          args: -c "serverless plugin install --name serverless-wsgi && serverless deploy"
+          entrypoint: /bin/sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  deploy-hml:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: Hml
-      url: https://test.com
-    steps:
-      - name: Deploy hml
-        run: echo "Deploy Hml"
