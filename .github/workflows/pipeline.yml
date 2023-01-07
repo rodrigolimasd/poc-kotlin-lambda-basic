@@ -33,8 +33,6 @@ jobs:
       name: Hml
       url: https://test.com
     steps:
-      - name: Deploy hml
-        run: echo "Deploy Hml"
       #checkout repo
       - name: Checkout
         uses: actions/checkout@v2
@@ -42,6 +40,26 @@ jobs:
           path: .
           include: |
             serverless.yml
+      #get build files
+      - name: Restore build artifacts
+        uses: actions/cache@v2
+        with:
+          path: build/libs
+          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+      - name: Install Heroku CLI
+        uses: heroku/setup-heroku-cli@v1
+      #Heroku
+      - name: Install Heroku CLI
+        uses: heroku/setup-heroku-cli@v1
+      #Login And Deploy on Heroku
+      - name: Heroku Login
+        run: |
+          heroku login
+          heroku deploy
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+
   #Deploy to AWS as HML
   deploy-prd:
     needs: build
