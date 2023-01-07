@@ -46,8 +46,6 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
-      - name: Install Heroku CLI
-        uses: heroku/setup-heroku-cli@v1
       #Login And Deploy on Heroku
       - name: Heroku Login
         run: |
