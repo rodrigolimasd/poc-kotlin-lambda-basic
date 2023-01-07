@@ -4,6 +4,9 @@ provider:
   name: aws
   runtime: java11
 
+plugins:
+  - serverless-wsgi
+
 package:
   artifact: build/libs/poc-kotlin-lambda-basic-dev-all.jar
 
