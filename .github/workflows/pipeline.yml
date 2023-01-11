@@ -33,36 +33,8 @@ jobs:
       name: Hml
       url: https://test.com
     steps:
-      #checkout repo
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      #Login Heroku
-      - name: Login Heroku
-        run: |
-          cat > ~/.netrc <<EOF
-            machine api.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-            machine git.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-          EOF
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      #Push to Heroku
-      - name: Add Heroku Remote
-        run: heroku git:remote --app $HEROKU_APP_NAME
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      #Deploy
-      - name: Push to Heroku & Deploy
-        run: |
-          heroku config:set GRADLE_TASK="build"
-          git push heroku HEAD:main --force
-          heroku run serverless
+      - name: Deploy hml
+        run: echo "Deploy Hml"
 
   #Deploy to AWS as HML
   deploy-prd:
