@@ -58,11 +58,10 @@ jobs:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
       #deploy on aws using serverless framework
-      - name: Install Plugin and Deploy
+      - name: Serverless Deploy
         uses: serverless/github-action@v3.1
         with:
-          args: -c "serverless plugin install --name serverless-wsgi && serverless deploy"
-          entrypoint: /bin/sh
+          args: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
