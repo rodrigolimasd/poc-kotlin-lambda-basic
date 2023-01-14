@@ -3,6 +3,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: java11
+  stage: ${opt:stage, 'hml'}
 
 package:
   artifact: build/libs/poc-kotlin-lambda-basic-dev-all.jar
