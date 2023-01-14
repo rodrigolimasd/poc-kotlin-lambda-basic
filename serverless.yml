@@ -3,7 +3,6 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: java11
-  stage: ${opt:stage, 'hml'}
 
 package:
   artifact: build/libs/poc-kotlin-lambda-basic-dev-all.jar
@@ -12,6 +11,8 @@ package:
 functions:
   helloWorld:
     handler: com.rodtech.serverless.HelloWorldFunction
+    environment:
+      STAGE: ${opt:stage, 'hml'}
     events:
       - http:
           path: /hello
