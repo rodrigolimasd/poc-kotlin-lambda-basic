@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '14'
-      #build with gradle
+      #build and test with gradle
       - name: Build
         run: ./gradlew build
       #add files build on cache to using another job
@@ -25,13 +25,19 @@ jobs:
         with:
           path: build/libs
           key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test
+        run: ./gradlew test
+
   #Deploy AWS hml
   deploy-hml:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     environment:
       name: Hml
-      url: https://test.com
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -39,11 +45,11 @@ jobs:
           path: .
           include: |
             serverless.yml
-      - name: Restore build artifacts
-        uses: actions/cache@v2
-        with:
-          path: build/libs
-          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+#      - name: Restore build artifacts
+#        uses: actions/cache@v2
+#        with:
+#          path: build/libs
+#          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -51,16 +57,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy to HML
-        run: |
-          serverless deploy --stage hml --aws-profile default --config serverless.yml --env stage=hml
+        uses: serverless/action@v3.1
+        with:
+          args: deploy --stage hml --config serverless.yml --package build/libs
+
 
   #Deploy to AWS prd
   deploy-prd:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     environment:
       name: Prod
-      url: https://test.com
     steps:
       #checkout repo
       - name: Checkout
@@ -70,11 +77,11 @@ jobs:
           include: |
             serverless.yml
       #get build files
-      - name: Restore build artifacts
-        uses: actions/cache@v2
-        with:
-          path: build/libs
-          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
+#      - name: Restore build artifacts
+#        uses: actions/cache@v2
+#        with:
+#          path: build/libs
+#          key: ${{ runner.os }}-build-${{ hashFiles('build/libs/*.jar') }}
       #aws config variables
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
