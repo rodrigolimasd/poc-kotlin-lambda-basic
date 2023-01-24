@@ -18,10 +18,22 @@ jobs:
           java-version: '14'
 
       - name: Setup Gradle
-        uses: gradle/gradle-buidl-action@v2
+        uses: gradle/gradle-build-action@v2
 
       - name: Gradle Build
         run: ./gradlew build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      uses: action/checkout@v3
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Gradle Build
+      run: ./gradlew test
 
 #  test:
 #    runs-on: ubuntu-latest
