@@ -23,16 +23,15 @@ jobs:
         with:
           arguments: build
 
-  test-jobs-teste:
+  test:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      uses: action/checkout@v3
-
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: test
+     #- uses: action/checkout@v3
+      - name: Run Tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
 
 #  test:
 #    runs-on: ubuntu-latest
