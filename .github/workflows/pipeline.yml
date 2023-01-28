@@ -23,29 +23,25 @@ jobs:
         with:
           arguments: build
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: |
+            build/libs/poc-kotlin-lambda-basic-dev-all.jar
+            serverless.yml
+
   test:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
+
       - name: Run Tests
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
-
-#  test:
-#    runs-on: ubuntu-latest
-#    needs: build
-#    steps:
-#        uses: actions/checkout@v3
-#
-#      - name: Setup Gradle
-#        uses: gradle/gradle-buidl-action@v2
-#
-#      - name: Test
-#        run: ./gradlew test
 
   #Deploy AWS hml
 #  deploy-hml:
@@ -55,11 +51,8 @@ jobs:
 #      name: Hml
 #    steps:
 #      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          path: .
-#          include: |
-#            serverless.yml
+#        uses: actions/checkout@v3
+
 #      - name: Restore build artifacts
 #        uses: actions/cache@v2
 #        with:
